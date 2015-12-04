@@ -1,0 +1,33 @@
+templates
+	# Takes two arguments (any number of times), feeding as $1 and $2 to the template body
+	tabs(2)
+		tab($1, $2)
+		($NOT-LAST ? div.tab-separator | : div.clear)
+
+	tab
+		input[type="radio" name="tabs" class="tab-radio" id="tab-$1" ($2 ? checked :)]
+		label.tab-label[for="tab-$1" tab="$1tab"] Main
+
+html
+	head
+		title Shelter
+		link[rel="stylesheet" type="text/css" href="css/main.css"]
+	body
+		div#main-content
+			div#title SHELTER
+			hr
+
+			div#body
+				tabs(
+					game, true,
+					inventory, false
+				)
+
+				div.gametab#gametab
+					div#dwellerlist
+						p Test McMuffin
+						p Bob Squiggle
+				
+				div.gametab#inventorytab
+
+		script[type="text/javascript" src="js/main.js"]

@@ -1,0 +1,27 @@
+html
+	head
+		title Shelter
+		link[rel="stylesheet" type="text/css" href="css/main.css"]
+	body
+		div#main-content
+			div#title SHELTER
+			hr
+
+			div#body
+				input[type="radio" name="tabs" class="tab-radio" id="tab-main" checked]
+				label.tab-label[for="tab-main" tab="gametab"] Main
+				div.tab-separator |
+
+				input[type="radio" name="tabs" class="tab-radio" id="tab-inventory"]
+				label.tab-label[for="tab-inventory" tab="inventorytab"] inventory
+
+				div.clear
+
+				div.gametab#gametab
+					div#dwellerlist
+						p Test McMuffin
+						p Bob Squiggle
+				
+				div.gametab#inventorytab
+
+		script[type="text/javascript" src="js/main.js"]
