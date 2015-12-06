@@ -1,0 +1,27 @@
+html
+	head
+		title: Shelter
+		link; rel=stylesheet; type=text/css; href=css/hacks.css
+		link; rel=stylesheet; type=text/css; href=css/main.css
+		script; src=lib/jquery.js
+	body
+		div#main-content
+			div#title: SHELTER
+			hr
+			div#body
+				input.tab-radio#tab-main; type=radio; name=tabs
+				label.tab-label; for=tab-main; tab=gametab: Main
+
+				div.tab-separator: |
+
+				input.tab-radio#tab-inventory; type=radio; name=tabs
+				label.tab-label; for=tab-inventory; tab=inventorytab: Inventory
+
+				div.clear
+
+				div.tab#gametab
+					div#dwellerlist
+					div.clear
+
+				div.tab#inventorytab
+		script; type=text/javascript; src=js/main.js

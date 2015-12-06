@@ -15,6 +15,7 @@ class UI {
 	labels: JQuery;
 	gameTab: Tab;
 	inventoryTab: Tab;
+    dwellerList: JQuery;
 
 	constructor() {
 		this.setup();
@@ -22,10 +23,12 @@ class UI {
 	}
 
 	setup(): void {
-		this.tabs = $('.gametab');
+		this.tabs = $('.tab');
 		this.labels = $('.tab-label');
 		this.gameTab = new Tab('gametab');
 		this.inventoryTab = new Tab('inventorytab');
+
+        this.dwellerList = $('#gametab #dwellerlist');
 
 		this.labels.click((event) => {
 			const targetTabId = event.target.attributes["tab"].value;
@@ -34,12 +37,17 @@ class UI {
 			this.tabs.hide();
 			targetTab.show();
 		});
+
+        this.dwellerList.on('click', '.dweller', (event) => {
+            alert('foo');
+        });
 	}
 
 	init(): void {
 		// start with only gameTab visible.
 		this.tabs.hide();
 		this.gameTab.label.click();
+        this.dwellerList.append('<a class="dweller">Test McTest</p>');
 	}
 }
 
