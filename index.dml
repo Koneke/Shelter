@@ -1,21 +1,27 @@
+def link-css(css):
+	link; rel=stylesheet; type=text/css; href=css/{css}.css
+
+def link-js(js):
+	script; src=js/{js}.js
+
+def tab-label(id):
+	input.tab-radio#tab-{id}; type=radio; name=tabs
+	label.tab-label; for=tab-{id}; tab={id}tab
+
 html
 	head
 		title: Shelter
-		link; rel=stylesheet; type=text/css; href=css/hacks.css
-		link; rel=stylesheet; type=text/css; href=css/main.css
-		script; src=lib/jquery.js
+		link-css(hacks)
+		link-css(main)
+		link-js(lib/jquery)
 	body
 		div#main-content
 			div#title: SHELTER
 			hr
 			div#body
-				input.tab-radio#tab-main; type=radio; name=tabs
-				label.tab-label; for=tab-main; tab=gametab: Main
-
+				tab-label(game): Main
 				div.tab-separator: |
-
-				input.tab-radio#tab-inventory; type=radio; name=tabs
-				label.tab-label; for=tab-inventory; tab=inventorytab: Inventory
+				tab-label(inventory): Inventory
 
 				div.clear
 
@@ -24,4 +30,4 @@ html
 					div.clear
 
 				div.tab#inventorytab
-		script; type=text/javascript; src=js/main.js
+		link-js(out)
