@@ -1,4 +1,5 @@
 /// <reference path="util.ts"/>
+/// <reference path="room.ts"/>
 
 enum Stats {
 	Strength,
@@ -8,6 +9,9 @@ enum Stats {
 	Intelligence,
 	Agility,
 	Luck
+}
+
+enum Traits {
 }
 
 enum InteractionType {
@@ -23,6 +27,8 @@ class Person {
 	stats: { [stat: number]: number } = {};
 	relations: { [personId: number]: number } = {};
 
+	currentRoom: Room;
+
 	constructor(name: string) {
 		this.name = name;
 		this.id = Person.idCounter++;
@@ -31,17 +37,18 @@ class Person {
 		});
 	}
 
+	getStat(stat: Stats): number {
+		return this.stats[stat];
+	}
+
 	alterRelationTo(person: Person, amount: number) {
 		this.relations[person.id] = this.relationTo(person) + amount;
 	}
 
 	relationTo(person: Person): number {
-		if(person.id in this.relations) {
-			return this.relations[person.id];
-		}
-		else {
-			return 0;
-		}
+		return person.id in this.relations
+			? this.relations[person.id]
+			: 0;
 	}
 
 	interact(other: Person): void {

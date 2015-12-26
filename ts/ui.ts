@@ -1,4 +1,5 @@
 /// <reference path="../js/lib/jquery.d.ts"/>
+/// <reference path="game.ts"/>
 
 class Tab {
 	id: string;
@@ -13,11 +14,13 @@ class Tab {
 }
 
 class UI {
+	game: Game;
+
 	tabs: JQuery;
 	labels: JQuery;
 	gameTab: Tab;
 	inventoryTab: Tab;
-    dwellerList: JQuery;
+	dwellerList: JQuery;
 
 	constructor() {
 		this.setup();
@@ -30,7 +33,7 @@ class UI {
 		this.gameTab = new Tab('gametab');
 		this.inventoryTab = new Tab('inventorytab');
 
-        this.dwellerList = $('#' + this.gameTab.id + ' #dwellerlist');
+		this.dwellerList = $('#' + this.gameTab.id + ' #dwellerlist');
 
 		this.labels.click((event) => {
 			const targetTabId = event.target.attributes["tab"].value;
@@ -45,7 +48,10 @@ class UI {
 		// start with only gameTab visible.
 		this.tabs.hide();
 		this.gameTab.label.click();
-        this.dwellerList.append('<a class="dweller">Test McTest</p>');
+		this.dwellerList.append('<a class="dweller">Test McTest</p>');
 	}
 }
 
+const ui = new UI();
+ui.game = new Game(ui);
+// const game = new Game();
