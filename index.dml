@@ -1,5 +1,5 @@
-def link-css(css):
-	link; rel=stylesheet; type=text/css; href=css/{css}.css
+def link-less(less):
+	link; rel=stylesheet/less; type=text/css; href=less/{less}.less
 
 def link-js(js):
 	script; src=js/{js}.js
@@ -11,8 +11,9 @@ def tab-label(id):
 html
 	head
 		title: Shelter
-		link-css(hacks)
-		link-css(main)
+		link-less(hacks)
+		link-less(main)
+		link-js(lib/less.min)
 		link-js(lib/jquery)
 	body
 		div#main-content

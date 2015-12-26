@@ -1,2 +1,4 @@
 *.html
 js/*.js
+*.swo
+*.swp

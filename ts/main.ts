@@ -1,72 +1,81 @@
-/// <reference path="references.ts"/>
+/// <reference path="../js/lib/jquery.d.ts"/>
+/// <reference path="ui.ts"/>
+/// <reference path="person.ts"/>
+/// <reference path="gEvent.ts"/>
+/// <reference path="util.ts"/>
 
-class Tab {
-	id: string;
-	body: JQuery;
-	label: JQuery;
+enum RoomType {
+	CommonRoom
+}
 
-	constructor(tab: string) {
-		this.id = tab;
-		this.label = $('[tab=' + tab + ']');
-		this.body = $('#' + tab);
+class Work {
+	progress: number;
+	work: number;
+	// result: ??;
+	relatedStat: Stats;
+
+	constructor(work: number) {
+		this.progress = 0;
+		this.work = work;
 	}
 }
 
-class UI {
-	tabs: JQuery;
-	labels: JQuery;
-	gameTab: Tab;
-	inventoryTab: Tab;
-    dwellerList: JQuery;
+class Room {
+	type: RoomType
+	people: Array<Person>;
+	work: Work;
 
-	constructor() {
-		this.setup();
-		this.init();
-	}
-
-	setup(): void {
-		this.tabs = $('.tab');
-		this.labels = $('.tab-label');
-		this.gameTab = new Tab('gametab');
-		this.inventoryTab = new Tab('inventorytab');
-
-        this.dwellerList = $('#' + this.gameTab.id + ' #dwellerlist');
-
-		this.labels.click((event) => {
-			const targetTabId = event.target.attributes["tab"].value;
-			const targetTab = $(`#${targetTabId}`);
-
-			this.tabs.hide();
-			targetTab.show();
-		});
-	}
-
-	init(): void {
-		// start with only gameTab visible.
-		this.tabs.hide();
-		this.gameTab.label.click();
-        this.dwellerList.append('<a class="dweller">Test McTest</p>');
+	constructor(type: RoomType) {
+		this.people = new Array<Person>();
+		this.type = type;
 	}
 }
 
 class Game {
 	ui: UI;
 	people: Array<Person>;
+	rooms: Array<Room>;
 
 	constructor() {
 		this.ui = new UI();
+		this.rooms = new Array<Room>();
+		this.people = new Array<Person>();
 		this.init();
 	}
 
 	init(): void {
-		this.people = new Array<Person>();
-		console.log(this.people);
-		this.people.push(new Person("Roger McMillen"));
-		console.log(this.people);
+		EventType.setup();
+
+		// Test stuff
+
+		let room = new Room(RoomType.CommonRoom);
+		this.rooms.push(room);
+
+		let roger = new Person("Roger McMillen");
+		let lisa = new Person("Lisa Braces");
+
+		room.people.push(roger);
+		room.people.push(lisa);
+
+		//EventType.disagreement.occuredTo(roger);
 
 		this.ui.dwellerList.on('click', '.dweller', (event) => {
 			alert('bar');
 		});
+
+		this.tick();
+	}
+
+	tick(): void {
+		for(var room of this.rooms) {
+			console.log("A room: " + RoomType[room.type]);
+
+			var first = Util.pickOne(room.people);
+			var rest = room.people.filter(p => p !== first);
+			var second = Util.pickOne(rest);
+
+			first.interact(second);
+		}
 	}
 }
 
